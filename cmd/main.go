@@ -6,6 +6,8 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/francois-roseberry/go-todo-app/todo"
 )
 
 type Templates struct {
@@ -18,16 +20,18 @@ func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Co
 
 func newTemplate() *Templates {
 	return &Templates{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		templates: template.Must(template.Must(template.ParseGlob("views/components/*.html")).ParseGlob("views/pages/*.html")),
 	}
 }
 
 func main() {
+	items := todo.ItemList()
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Renderer = newTemplate()
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", "nil")
+		return c.Render(200, "index", items)
 	})
 	e.Logger.Fatal(e.Start(":3000"))
 }

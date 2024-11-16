@@ -1,0 +1,9 @@
+{{ block "list" . }}
+<ul>
+    {{ range . }}
+        <li>
+            <span>{{ .Name }}</span>
+        </li>
+    {{ end }}
+</ul>
+{{ end }}
