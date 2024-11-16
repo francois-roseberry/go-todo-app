@@ -3,16 +3,20 @@ Simple todo app using Go and HTMX has a practice and reference point of go proje
 
 ## Development setup
 
-Install [Go](https://go.dev/doc/install) and [Air](https://github.com/air-verse/air)
+Install [Go](https://go.dev/doc/install), [Air](https://github.com/air-verse/air) and [Make](https://www.gnu.org/software/make/)
 
-Install project dependencies:
+To lint:
 
-`go get`
+`make lint`
 
-To start the server without hot reloading:
+To build:
 
-`go run .`
+`make build`
+
+To build and start the server in non-development mode:
+
+`make start`
 
 To start the server in development mode:
 
-`air`
+`make dev`
