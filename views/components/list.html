@@ -6,19 +6,32 @@
         padding: 6px 10px;
         margin: 5px 0;
         color: #144418;
+        position: relative;
     }
 
     .item-checkbox {
         margin-right: 18px;
     }
 
-    .new-item-button {
+    .new-item-btn {
         border-radius: 3px;
         background-color: #dbe7df;
         color: #144418;
         font-style: italic;
         border: 1px dashed #144418;
         padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .remove-item-btn {
+        position: absolute;
+        right: 8px;
+        top: 6px;
+        font-size: 15px;
+        font-weight: 400;
+        color: #fff;
+        padding: 0;
+        border: none;
         cursor: pointer;
     }
 </style>
@@ -28,15 +41,21 @@
         {{ template "item" . }}
     {{ end }}
     </div>
-    <button hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-button">
+    <button hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-btn">
         Click here to add an item
     </button>
 </div>
 {{ end }}
 
 {{ block "item" . }}
-<div class="item">
+<div class="item" data-id="{{ .Id }}">
     <input type="checkbox" class="item-checkbox" value="{{ .Checked }}" />
     <span>{{ .Name }}</span>
+    <div class="remove-item-btn" hx-delete="/items" hx-vals='{"id":"{{ .Id }}"}' hx-target=".item[data-id='{{ .Id }}']" hx-swap="outerHTML">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+          </svg>
+    </div>
 </div>
 {{ end }}

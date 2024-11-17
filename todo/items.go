@@ -3,12 +3,14 @@ package todo
 import "fmt"
 
 type Item struct {
+	Id      int
 	Name    string
 	Checked bool
 }
 
 func NewItem(index int) Item {
 	return Item{
+		Id:   index,
 		Name: fmt.Sprintf("Item %d", index),
 	}
 }

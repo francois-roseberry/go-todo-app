@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"io"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -36,6 +37,11 @@ func main() {
 	e.POST("/items", func(c echo.Context) error {
 		item := app.AddNewItem()
 		return c.Render(200, "item", item)
+	})
+	e.DELETE("/items", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.QueryParam("id"))
+		app.RemoveItem(id)
+		return nil
 	})
 	e.Logger.Fatal(e.Start(":3000"))
 }
