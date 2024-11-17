@@ -5,9 +5,35 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            main {
+                flex: 1;
+            }
+
+            section {
+                margin-top: 100px;
+            }
+        </style>
     </head>
     <body>
-       {{ template "list" .Items }}
+        <main class="container">
+            <section>
+                {{ template "list" .Items }}
+            </section>
+        </main>
     </body>
 </html>
 {{ end }}

@@ -1,9 +1,42 @@
 {{ block "list" . }}
-<ul>
-    {{ range . }}
-        <li>
-            <span>{{ .Name }}</span>
-        </li>
+<style>
+    .item {
+        background-color: #9fb4a7;
+        border-radius: 3px;
+        padding: 6px 10px;
+        margin: 5px 0;
+        color: #144418;
+    }
+
+    .item-checkbox {
+        margin-right: 18px;
+    }
+
+    .new-item-button {
+        border-radius: 3px;
+        background-color: #dbe7df;
+        color: #144418;
+        font-style: italic;
+        border: 1px dashed #144418;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+<div class="items-list">
+    <div class="active-items">
+        {{ range . }}
+        {{ template "item" . }}
     {{ end }}
-</ul>
+    </div>
+    <button hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-button">
+        Click here to add an item
+    </button>
+</div>
+{{ end }}
+
+{{ block "item" . }}
+<div class="item">
+    <input type="checkbox" class="item-checkbox" value="{{ .Checked }}" />
+    <span>{{ .Name }}</span>
+</div>
 {{ end }}

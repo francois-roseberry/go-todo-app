@@ -33,5 +33,9 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(200, "index", *app)
 	})
+	e.POST("/items", func(c echo.Context) error {
+		item := app.AddNewItem()
+		return c.Render(200, "item", item)
+	})
 	e.Logger.Fatal(e.Start(":3000"))
 }

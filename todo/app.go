@@ -9,3 +9,9 @@ func NewApp() *App {
 		Items: ItemList(),
 	}
 }
+
+func (app *App) AddNewItem() Item {
+	item := NewItem(len(app.Items) + 1)
+	app.Items = append(app.Items, item)
+	return item
+}
