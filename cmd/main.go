@@ -25,13 +25,13 @@ func newTemplate() *Templates {
 }
 
 func main() {
-	items := todo.ItemList()
+	app := todo.NewApp()
 
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.Renderer = newTemplate()
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", items)
+		return c.Render(200, "index", *app)
 	})
 	e.Logger.Fatal(e.Start(":3000"))
 }
