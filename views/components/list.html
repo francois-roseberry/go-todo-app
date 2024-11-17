@@ -21,6 +21,7 @@
         border: 1px dashed #144418;
         padding: 10px 20px;
         cursor: pointer;
+        text-align: center;
     }
 
     .remove-item-btn {
@@ -41,9 +42,9 @@
         {{ template "item" . }}
     {{ end }}
     </div>
-    <button hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-btn">
+    <div hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-btn">
         Click here to add an item
-    </button>
+    </div>
 </div>
 {{ end }}
 
