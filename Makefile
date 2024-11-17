@@ -1,6 +1,9 @@
 lint:
 	gofmt -w -s .
 
+test:
+	go test ./...
+
 build:
 	go build -o ./tmp/main cmd/main.go
 
