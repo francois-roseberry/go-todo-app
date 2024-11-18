@@ -9,6 +9,10 @@ To lint:
 
 `make lint`
 
+To run the unit tests:
+
+`make test`
+
 To build:
 
 `make build`

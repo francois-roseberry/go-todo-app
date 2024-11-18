@@ -21,3 +21,12 @@ func TestAddItemAtEndOfList(t *testing.T) {
 	assert.Equal(t, 10, lastItem.Id, "New item must have an id of 10")
 	assert.False(t, lastItem.Checked, "New item must be unchecked")
 }
+
+func TestRemoveItem(t *testing.T) {
+	indexToRemove := 1
+	app := NewApp()
+	l1 := len(app.Items)
+	app.RemoveItem(indexToRemove)
+	l2 := len(app.Items)
+	assert.Equal(t, l2, l1-1, "Removing an item must make the list one item shorter")
+}
