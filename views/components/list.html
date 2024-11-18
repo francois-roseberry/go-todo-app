@@ -18,6 +18,14 @@
         margin-right: 18px;
     }
 
+    .task-name {
+        cursor: pointer;
+    }
+
+    .task-name:hover {
+        text-decoration: underline;
+    }
+
     .new-task-btn {
         border-radius: 3px;
         background-color: #dbe7df;
@@ -56,7 +64,7 @@
 {{ block "task" . }}
 <div class="task" data-id="{{ .Id }}">
     <input type="checkbox" class="task-checkbox" value="{{ .Checked }}" />
-    <span>{{ .Name }}</span>
+    {{ template "task-name" . }}
     <div class="remove-task-btn" hx-delete="/tasks" hx-vals='{"id":"{{ .Id }}"}' hx-target=".task[data-id='{{ .Id }}']" hx-swap="outerHTML swap:500ms">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -64,4 +72,12 @@
           </svg>
     </div>
 </div>
+{{ end }}
+
+{{ block "task-name" . }}
+<span class="task-name" hx-get="/tasks/{{ .Id }}/edit" hx-swap="outerHTML">{{ .Name }}</span>
+{{ end }}
+
+{{ block "task-name-edit" . }}
+<input name="task-name" type="text" placeholder="{{ .Name }}" hx-put="/tasks/{{ .Id }}" hx-trigger="keyup[keyCode==13]" hx-swap="outerHTML" autofocus />
 {{ end }}

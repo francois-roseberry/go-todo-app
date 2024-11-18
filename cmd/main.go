@@ -42,5 +42,17 @@ func main() {
 		app.RemoveTask(id)
 		return nil
 	})
+	e.GET("/tasks/:id/edit", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.Param("id"))
+		task, _ := app.GetTask(id)
+		return c.Render(200, "task-name-edit", task)
+	})
+	e.PUT("/tasks/:id", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.Param("id"))
+		name := c.FormValue("task-name")
+		task, _ := app.GetTask(id)
+		task.Name = name
+		return c.Render(200, "task-name", task)
+	})
 	e.Logger.Fatal(e.Start(":3000"))
 }

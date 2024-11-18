@@ -5,7 +5,7 @@ import (
 )
 
 type App struct {
-	Tasks []Task
+	Tasks []*Task
 }
 
 func NewApp() *App {
@@ -14,7 +14,7 @@ func NewApp() *App {
 	}
 }
 
-func (app *App) AddNewTask() Task {
+func (app *App) AddNewTask() *Task {
 	t := NewTask(len(app.Tasks) + 1)
 	app.Tasks = append(app.Tasks, t)
 	return t
@@ -25,6 +25,15 @@ func (app *App) RemoveTask(id int) {
 	if err == nil {
 		app.Tasks = append(app.Tasks[:i], app.Tasks[i+1:]...)
 	}
+}
+
+func (app *App) GetTask(id int) (*Task, error) {
+	i, err := app.findTask(id)
+	if err != nil {
+		return nil, err
+	}
+
+	return app.Tasks[i], nil
 }
 
 func (app *App) findTask(id int) (int, error) {
