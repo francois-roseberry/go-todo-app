@@ -5,10 +5,9 @@ import (
 	"io"
 	"strconv"
 
+	"github.com/francois-roseberry/go-todo-app/task"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-
-	"github.com/francois-roseberry/go-todo-app/todo"
 )
 
 type Templates struct {
@@ -26,7 +25,7 @@ func newTemplate() *Templates {
 }
 
 func main() {
-	app := todo.NewApp()
+	app := task.NewApp()
 
 	e := echo.New()
 	e.Use(middleware.Logger())
@@ -34,13 +33,13 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(200, "index", *app)
 	})
-	e.POST("/items", func(c echo.Context) error {
-		item := app.AddNewItem()
-		return c.Render(200, "item", item)
+	e.POST("/tasks", func(c echo.Context) error {
+		task := app.AddNewTask()
+		return c.Render(200, "task", task)
 	})
-	e.DELETE("/items", func(c echo.Context) error {
+	e.DELETE("/tasks", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.QueryParam("id"))
-		app.RemoveItem(id)
+		app.RemoveTask(id)
 		return nil
 	})
 	e.Logger.Fatal(e.Start(":3000"))

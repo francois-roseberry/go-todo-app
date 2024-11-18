@@ -1,6 +1,6 @@
 {{ block "list" . }}
 <style>
-    .item {
+    .task {
         background-color: #9fb4a7;
         border-radius: 3px;
         padding: 6px 10px;
@@ -9,11 +9,11 @@
         position: relative;
     }
 
-    .item-checkbox {
+    .task-checkbox {
         margin-right: 18px;
     }
 
-    .new-item-btn {
+    .new-task-btn {
         border-radius: 3px;
         background-color: #dbe7df;
         color: #144418;
@@ -24,7 +24,7 @@
         text-align: center;
     }
 
-    .remove-item-btn {
+    .remove-task-btn {
         position: absolute;
         right: 8px;
         top: 6px;
@@ -36,23 +36,23 @@
         cursor: pointer;
     }
 </style>
-<div class="items-list">
-    <div class="active-items">
-        {{ range . }}
-        {{ template "item" . }}
+<div class="tasks-list">
+    <div class="active-tasks">
+    {{ range . }}
+        {{ template "task" . }}
     {{ end }}
     </div>
-    <div hx-post="/items" hx-swap="beforeend" hx-target=".active-items" class="new-item-btn">
-        Click here to add an item
+    <div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">
+        Click here to add a task
     </div>
 </div>
 {{ end }}
 
-{{ block "item" . }}
-<div class="item" data-id="{{ .Id }}">
-    <input type="checkbox" class="item-checkbox" value="{{ .Checked }}" />
+{{ block "task" . }}
+<div class="task" data-id="{{ .Id }}">
+    <input type="checkbox" class="task-checkbox" value="{{ .Checked }}" />
     <span>{{ .Name }}</span>
-    <div class="remove-item-btn" hx-delete="/items" hx-vals='{"id":"{{ .Id }}"}' hx-target=".item[data-id='{{ .Id }}']" hx-swap="outerHTML">
+    <div class="remove-task-btn" hx-delete="/tasks" hx-vals='{"id":"{{ .Id }}"}' hx-target=".task[data-id='{{ .Id }}']" hx-swap="outerHTML">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
