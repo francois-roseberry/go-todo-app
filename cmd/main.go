@@ -5,7 +5,7 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/francois-roseberry/go-todo-app/task"
+	"github.com/francois-roseberry/go-todo-app/internal/task"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -50,6 +50,7 @@ func main() {
 	e.PUT("/tasks/:id", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		name := c.FormValue("task-name")
+		// TODO validate name
 		task, _ := app.GetTask(id)
 		task.Name = name
 		return c.Render(200, "task-name", task)
