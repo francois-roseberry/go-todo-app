@@ -11,6 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Templ
+        run: go install github.com/a-h/templ/cmd/templ@latest
+
       - name: Lint
         run: make lint
 
