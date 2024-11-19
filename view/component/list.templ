@@ -1,0 +1,18 @@
+package component
+
+import (
+    "github.com/francois-roseberry/go-todo-app/internal/task"
+)
+
+templ TaskList(ts []*task.Task) {
+    <div class="tasks-list">
+        <div class="active-tasks">
+            for _, t := range ts {
+                @Task(t)
+            }
+        </div>
+        <div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">
+            Click here to add a task
+        </div>
+    </div>
+}

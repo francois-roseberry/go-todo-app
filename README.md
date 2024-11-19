@@ -3,7 +3,7 @@ Simple todo app using Go and HTMX as a practice and reference point of go projec
 
 ## Development setup
 
-Install [Go](https://go.dev/doc/install), [Air](https://github.com/air-verse/air) and [Make](https://www.gnu.org/software/make/)
+Install [Go](https://go.dev/doc/install), [Air](https://github.com/air-verse/air), [Make](https://www.gnu.org/software/make/) and [Templ](https://templ.guide/quick-start/installation)
 
 To lint:
 

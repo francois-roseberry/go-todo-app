@@ -1,0 +1,10 @@
+package component
+
+import (
+    "fmt"
+    "github.com/francois-roseberry/go-todo-app/internal/task"
+)
+
+templ TaskName(t *task.Task) {
+    <span class="task-name" hx-get={ fmt.Sprintf("/tasks/%d/edit", t.Id) } hx-swap="outerHTML">{ t.Name }</span>
+}

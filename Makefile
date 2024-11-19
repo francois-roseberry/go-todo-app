@@ -5,10 +5,10 @@ test:
 	go test -v ./...
 
 build:
-	go build -o ./tmp/main cmd/main.go
+	templ generate & go build -o ./tmp/main cmd/main.go
 
 start:
-	go run cmd/main.go
+	templ generate & go run cmd/main.go
 
 dev:
 	air

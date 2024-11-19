@@ -1,2 +1,5 @@
 # Build  directory for Air
 tmp/
+
+# Generated Templ files
+*_templ.go

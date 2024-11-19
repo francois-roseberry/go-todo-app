@@ -1,27 +1,26 @@
 package main
 
 import (
-	"html/template"
-	"io"
 	"strconv"
 
+	"github.com/a-h/templ"
 	"github.com/francois-roseberry/go-todo-app/internal/task"
+	"github.com/francois-roseberry/go-todo-app/view/component"
+	"github.com/francois-roseberry/go-todo-app/view/page"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
-type Templates struct {
-	templates *template.Template
-}
+// This custom Render replaces Echo's echo.Context.Render() with templ's templ.Component.Render().
+func Render(ctx echo.Context, statusCode int, t templ.Component) error {
+	buf := templ.GetBuffer()
+	defer templ.ReleaseBuffer(buf)
 
-func (t *Templates) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-func newTemplate() *Templates {
-	return &Templates{
-		templates: template.Must(template.Must(template.ParseGlob("views/components/*.html")).ParseGlob("views/pages/*.html")),
+	if err := t.Render(ctx.Request().Context(), buf); err != nil {
+		return err
 	}
+
+	return ctx.HTML(statusCode, buf.String())
 }
 
 func main() {
@@ -29,13 +28,12 @@ func main() {
 
 	e := echo.New()
 	e.Use(middleware.Logger())
-	e.Renderer = newTemplate()
 	e.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", *app)
+		return Render(c, 200, page.Index(app))
 	})
 	e.POST("/tasks", func(c echo.Context) error {
 		task := app.AddNewTask()
-		return c.Render(200, "task", task)
+		return Render(c, 200, component.Task(task))
 	})
 	e.DELETE("/tasks", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.QueryParam("id"))
@@ -45,7 +43,7 @@ func main() {
 	e.GET("/tasks/:id/edit", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
-		return c.Render(200, "task-name-edit", task)
+		return Render(c, 200, component.TaskNameEdit(task))
 	})
 	e.PUT("/tasks/:id", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
@@ -53,7 +51,7 @@ func main() {
 		// TODO validate name
 		task, _ := app.GetTask(id)
 		task.Name = name
-		return c.Render(200, "task-name", task)
+		return Render(c, 200, component.TaskName(task))
 	})
 	e.Logger.Fatal(e.Start(":3000"))
 }
