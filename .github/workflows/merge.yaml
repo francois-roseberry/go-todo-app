@@ -8,8 +8,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Go bin to PATH
-        run: export PATH=$PATH:$(go env GOPATH)/bin
+      - name: Setup Go environment
+        uses: actions/setup-go@v5.1.0
 
       - name: Checkout
         uses: actions/checkout@v4
