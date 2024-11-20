@@ -2,7 +2,7 @@ lint:
 	gofmt -w -s .
 
 test:
-	templ generate & go test -v ./...
+	templ generate & go test -v -cover ./...
 
 build:
 	templ generate & go build -o ./tmp/main cmd/main.go
