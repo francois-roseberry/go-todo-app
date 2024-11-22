@@ -40,10 +40,15 @@ func main() {
 		app.RemoveTask(id)
 		return nil
 	})
-	e.GET("/tasks/:id/edit", func(c echo.Context) error {
+	e.GET("/tasks/:id/edit-name", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
 		return Render(c, 200, component.TaskNameEdit(task))
+	})
+	e.GET("/tasks/:id/display-name", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.Param("id"))
+		task, _ := app.GetTask(id)
+		return Render(c, 200, component.TaskName(task))
 	})
 	e.PUT("/tasks/:id", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
