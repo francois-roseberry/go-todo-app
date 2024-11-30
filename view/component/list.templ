@@ -6,7 +6,7 @@ import (
 
 templ TaskList(ts []*task.Task) {
     <div class="tasks-list">
-        <div class="active-tasks">
+        <div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name='task-id']" hx-swap="none">
             for _, t := range ts {
                 @Task(t)
             }

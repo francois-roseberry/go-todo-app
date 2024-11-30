@@ -36,6 +36,23 @@ func (app *App) GetTask(id int) (*Task, error) {
 	return app.Tasks[i], nil
 }
 
+// Re-order the task list to follow an array of ids passed in
+// Assumes that:
+// - array contains unique values
+// - array contains the ids of the existing tasks
+func (app *App) ReorderTasks(taskIds []int) error {
+	if len(taskIds) != len(app.Tasks) {
+		return errors.New("provided taskIds must be the same length as app tasks")
+	}
+	tasks := make([]*Task, len(app.Tasks))
+	for i, id := range taskIds {
+		t, _ := app.GetTask(id)
+		tasks[i] = t
+	}
+	app.Tasks = tasks
+	return nil
+}
+
 func (app *App) findTask(id int) (int, error) {
 	for index, t := range app.Tasks {
 		if t.Id == id {
@@ -43,5 +60,5 @@ func (app *App) findTask(id int) (int, error) {
 		}
 	}
 
-	return -1, errors.New("Task not found")
+	return -1, errors.New("task not found")
 }
