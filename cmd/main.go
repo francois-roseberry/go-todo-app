@@ -72,7 +72,6 @@ func main() {
 	e.PUT("/tasks/:id", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		name := c.FormValue("task-name")
-		// TODO validate name
 		task, _ := app.GetTask(id)
 		task.Name = name
 		return Render(c, 200, component.TaskName(task))
