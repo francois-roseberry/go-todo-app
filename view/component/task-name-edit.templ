@@ -7,7 +7,7 @@ import (
 
 templ TaskNameEdit(t *task.Task) {
     <div id={ fmt.Sprintf("edit-task-name-%d", t.Id) } hx-swap="outerHTML"
-        hx-get={ fmt.Sprintf("/tasks/%d/display-name", t.Id) } hx-trigger="keyup[keyCode==27]" style="display: inline;">
+        hx-get={ fmt.Sprintf("/tasks/%d/display-name", t.Id) } hx-params="not task-id" hx-trigger="keyup[keyCode==27]" style="display: inline;">
         <input name="task-name" type="text" value={ t.Name }
             hx-put={ fmt.Sprintf("/tasks/%d", t.Id) }
             hx-trigger="keyup[keyCode==13]"
