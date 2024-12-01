@@ -6,5 +6,5 @@ import (
 )
 
 templ TaskName(t *task.Task) {
-    <span class="task-name" hx-get={ fmt.Sprintf("/tasks/%d/edit-name", t.Id) } hx-swap="outerHTML">{ t.Name }</span>
+    <span class="task-name" hx-get={ fmt.Sprintf("/tasks/%d/edit-name", t.Id) } hx-params="not task-id" hx-swap="outerHTML">{ t.Name }</span>
 }
