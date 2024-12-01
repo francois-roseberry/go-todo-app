@@ -71,9 +71,17 @@ func main() {
 
 	e.PUT("/tasks/:id", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
-		name := c.FormValue("task-name")
 		task, _ := app.GetTask(id)
-		task.Name = name
+		name := c.FormValue("task-name")
+		if name != "" {
+			task.Name = name
+		}
+		checked := c.FormValue("checked")
+		if checked == "on" {
+			task.Checked = true
+		} else {
+			task.Checked = false
+		}
 		return Render(c, 200, component.TaskName(task))
 	})
 

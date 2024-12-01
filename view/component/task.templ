@@ -13,7 +13,7 @@ templ Task(t *task.Task) {
   <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
 </svg>
         </span>
-        <input type="checkbox" class="task-checkbox" value={ fmt.Sprintf("%t", t.Checked) } />
+        <input type="checkbox" name="checked" class="task-checkbox" hx-put={ fmt.Sprintf("/tasks/%d", t.Id) } hx-params="not task-id" checked?={  t.Checked } />
         @TaskName(t)
         <div class="remove-task-btn" hx-delete={ fmt.Sprintf("/tasks?id=%d", t.Id)} hx-params="not task-id" hx-target={ fmt.Sprintf(".task[data-id='%d']", t.Id) } hx-swap="outerHTML swap:500ms">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
