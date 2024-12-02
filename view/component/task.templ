@@ -5,21 +5,30 @@ import (
     "github.com/francois-roseberry/go-todo-app/internal/task"
 )
 
-templ Task(t *task.Task) {
+templ Task(t *task.Task, locked bool) {
     <div class="task" data-id={ fmt.Sprintf("%d", t.Id) }>
         <input type="hidden" name="task-id" value={ fmt.Sprintf("%d", t.Id) } />
-        <span class="handle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
-  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-</svg>
-        </span>
-        <input type="checkbox" name="checked" class="task-checkbox" hx-put={ fmt.Sprintf("/tasks/%d", t.Id) } hx-params="not task-id" checked?={  t.Checked } />
-        @TaskName(t)
-        <div class="remove-task-btn" hx-delete={ fmt.Sprintf("/tasks?id=%d", t.Id)} hx-params="not task-id" hx-target={ fmt.Sprintf(".task[data-id='%d']", t.Id) } hx-swap="outerHTML swap:500ms">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
-            </svg>
-        </div>
+        if !locked {
+            <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                    <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg>
+            </span>
+        }
+        
+        if locked {
+            <input type="checkbox" name="checked" class="task-checkbox" hx-put={ fmt.Sprintf("/tasks/%d", t.Id) } hx-params="not task-id" checked?={  t.Checked } />
+        }
+        
+        @TaskName(t, locked)
+
+        if !locked {
+            <div class="remove-task-btn" hx-delete={ fmt.Sprintf("/tasks?id=%d", t.Id)} hx-params="not task-id" hx-target={ fmt.Sprintf(".task[data-id='%d']", t.Id) } hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                </svg>
+            </div>
+        }
     </div>
 }

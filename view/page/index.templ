@@ -1,6 +1,8 @@
 package page
 
 import (
+    "fmt"
+
     "github.com/francois-roseberry/go-todo-app/internal/task"
     "github.com/francois-roseberry/go-todo-app/view/component"
 )
@@ -20,6 +22,7 @@ templ Index(app *task.App) {
                 integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
                 crossorigin="anonymous"
             >
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
             <style>
                 html, body {
                     height: 100%;
@@ -41,6 +44,15 @@ templ Index(app *task.App) {
                     margin-top: 100px;
                 }
 
+                .lock-btn {
+                    display: inline-block;
+                    border: solid black 1px;
+                    border-radius: 4px;
+                    padding: 4px 10px;
+                    margin-bottom: 20px;
+                    cursor: pointer;
+                }
+
                 .task {
                     background-color: #9fb4a7;
                     border-radius: 3px;
@@ -59,11 +71,11 @@ templ Index(app *task.App) {
                     margin-right: 18px;
                 }
 
-                .task-name {
+                .task-name.editable {
                     cursor: pointer;
                 }
 
-                .task-name:hover {
+                .task-name.editable:hover {
                     text-decoration: underline;
                 }
 
@@ -109,11 +121,22 @@ templ Index(app *task.App) {
             </script>
         </head>
         <body>
-            <main class="container">
-                <section>
-                    @component.TaskList(app.Tasks)
-                </section>
-            </main>
+            @Container(app)
         </body>
     </html>
+}
+
+templ Container(app *task.App) {
+    <main class="container">
+        <section>
+            <span class="lock-btn" hx-put={ fmt.Sprintf("/status?locked=%t", !app.Locked) } hx-target=".container" hx-swap="outerHTML">
+                if app.Locked {
+                    <i class="bi bi-lock"></i>
+                } else {
+                    <i class="bi bi-unlock"></i>
+                }
+            </span>
+            @component.TaskList(app.Tasks, app.Locked)
+        </section>
+    </main>
 }

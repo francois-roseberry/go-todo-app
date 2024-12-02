@@ -37,9 +37,19 @@ func main() {
 		return Render(c, 200, page.Index(app))
 	})
 
+	e.PUT("status", func(c echo.Context) error {
+		locked := c.QueryParam("locked")
+		if locked == "true" {
+			app.Locked = true
+		} else {
+			app.Locked = false
+		}
+		return Render(c, 200, page.Container(app))
+	})
+
 	e.POST("/tasks", func(c echo.Context) error {
 		task := app.AddNewTask()
-		return Render(c, 200, component.Task(task))
+		return Render(c, 200, component.Task(task, app.Locked))
 	})
 
 	e.PUT("/tasks", func(c echo.Context) error {
@@ -66,7 +76,7 @@ func main() {
 	e.GET("/tasks/:id/display-name", func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
-		return Render(c, 200, component.TaskName(task))
+		return Render(c, 200, component.TaskName(task, app.Locked))
 	})
 
 	e.PUT("/tasks/:id", func(c echo.Context) error {
@@ -82,7 +92,7 @@ func main() {
 		} else {
 			task.Checked = false
 		}
-		return Render(c, 200, component.TaskName(task))
+		return Render(c, 200, component.TaskName(task, app.Locked))
 	})
 
 	e.Logger.Fatal(e.Start(":3000"))

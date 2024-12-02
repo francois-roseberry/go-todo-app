@@ -4,15 +4,17 @@ import (
     "github.com/francois-roseberry/go-todo-app/internal/task"
 )
 
-templ TaskList(ts []*task.Task) {
-    <div class="tasks-list">
+templ TaskList(ts []*task.Task, locked bool) {
+    <div class="task-list">
         <div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name='task-id']" hx-swap="none">
             for _, t := range ts {
-                @Task(t)
+                @Task(t, locked)
             }
         </div>
-        <div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">
-            Click here to add a task
-        </div>
+        if !locked {
+            <div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">
+                Click here to add a task
+            </div>
+        }
     </div>
 }

@@ -5,7 +5,8 @@ import (
 )
 
 type App struct {
-	Tasks []*Task
+	Tasks  []*Task
+	Locked bool
 }
 
 func NewApp() *App {
