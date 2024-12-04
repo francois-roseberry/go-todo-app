@@ -8,6 +8,7 @@ import (
 
 	"github.com/francois-roseberry/go-todo-app/internal/task"
 	"github.com/gkampitakis/go-snaps/snaps"
+	"github.com/yosssi/gohtml"
 )
 
 func TestBaseRoute(t *testing.T) {
@@ -16,7 +17,7 @@ func TestBaseRoute(t *testing.T) {
 	rec := httptest.NewRecorder()
 
 	s.e.ServeHTTP(rec, req)
-	snaps.MatchSnapshot(t, rec.Body.String())
+	snaps.MatchSnapshot(t, gohtml.Format(rec.Body.String()))
 }
 
 func TestPutStatusRoute(t *testing.T) {
@@ -25,5 +26,5 @@ func TestPutStatusRoute(t *testing.T) {
 	rec := httptest.NewRecorder()
 
 	s.e.ServeHTTP(rec, req)
-	snaps.MatchSnapshot(t, rec.Body.String())
+	snaps.MatchSnapshot(t, gohtml.Format(rec.Body.String()))
 }

@@ -1,102 +1,357 @@
 
 [TestBaseRoute - 1]
-<!doctype html><html lang="en"><head><title></title><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script><script src="https://unpkg.com/sortablejs@1.15.3"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"><style>
-                html, body {
-                    height: 100%;
-                    margin: 0;
-                }
+<!doctype html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sortablejs@1.15.3"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      html, body {
+      height: 100%;
+      margin: 0;
+      }
 
-                body {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
+      body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      }
 
-                main {
-                    flex: 1;
-                }
+      main {
+      flex: 1;
+      }
 
-                section {
-                    margin-top: 100px;
-                }
+      section {
+      margin-top: 100px;
+      }
 
-                .lock-btn {
-                    display: inline-block;
-                    border: solid black 1px;
-                    border-radius: 4px;
-                    padding: 4px 10px;
-                    margin-bottom: 20px;
-                    cursor: pointer;
-                }
+      .lock-btn {
+      display: inline-block;
+      border: solid black 1px;
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      }
 
-                .task {
-                    background-color: #9fb4a7;
-                    border-radius: 3px;
-                    padding: 6px 10px;
-                    margin: 5px 0;
-                    color: #144418;
-                    position: relative;
-                }
+      .task {
+      background-color: #9fb4a7;
+      border-radius: 3px;
+      padding: 6px 10px;
+      margin: 5px 0;
+      color: #144418;
+      position: relative;
+      }
 
-                .task.htmx-swapping {
-                    opacity: 0;
-                    transition: opacity 500ms ease-out;
-                }
+      .task.htmx-swapping {
+      opacity: 0;
+      transition: opacity 500ms ease-out;
+      }
 
-                .task-checkbox {
-                    margin-right: 18px;
-                }
+      .task-checkbox {
+      margin-right: 18px;
+      }
 
-                .task-name.editable {
-                    cursor: pointer;
-                }
+      .task-name.editable {
+      cursor: pointer;
+      }
 
-                .task-name.editable:hover {
-                    text-decoration: underline;
-                }
+      .task-name.editable:hover {
+      text-decoration: underline;
+      }
 
-                .new-task-btn {
-                    border-radius: 3px;
-                    background-color: #dbe7df;
-                    color: #144418;
-                    font-style: italic;
-                    border: 1px dashed #144418;
-                    padding: 10px 20px;
-                    cursor: pointer;
-                    text-align: center;
-                }
+      .new-task-btn {
+      border-radius: 3px;
+      background-color: #dbe7df;
+      color: #144418;
+      font-style: italic;
+      border: 1px dashed #144418;
+      padding: 10px 20px;
+      cursor: pointer;
+      text-align: center;
+      }
 
-                .handle {
-                    margin-right: 10px;
-                    display: inline;
-                    position: relative;
-                    top: -2px;
-                    cursor: pointer;
-                }
+      .handle {
+      margin-right: 10px;
+      display: inline;
+      position: relative;
+      top: -2px;
+      cursor: pointer;
+      }
 
-                .remove-task-btn {
-                    position: absolute;
-                    right: 8px;
-                    top: 6px;
-                    font-size: 15px;
-                    font-weight: 400;
-                    color: #fff;
-                    padding: 0;
-                    border: none;
-                    cursor: pointer;
-                }
-            </style><script type="text/javascript">
-                htmx.onLoad(function (content) {
-                    var taskList = content.querySelector('.active-tasks');
-                    new Sortable(taskList, {
-                        handle: '.handle',
-                        animation: 150,
-                    });
-                })
-            </script></head><body><main class="container"><section><span class="lock-btn" hx-put="/status?locked=true" hx-target=".container" hx-swap="outerHTML"><i class="bi bi-unlock"></i></span><div class="task-list"><div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name=&#39;task-id&#39;]" hx-swap="none"><div class="task" data-id="1"><input type="hidden" name="task-id" value="1"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/1/edit-name">Task 1</span><div class="remove-task-btn" hx-delete="/tasks?id=1" hx-params="not task-id" hx-target=".task[data-id=&#39;1&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="2"><input type="hidden" name="task-id" value="2"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/2/edit-name">Task 2</span><div class="remove-task-btn" hx-delete="/tasks?id=2" hx-params="not task-id" hx-target=".task[data-id=&#39;2&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="3"><input type="hidden" name="task-id" value="3"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/3/edit-name">Task 3</span><div class="remove-task-btn" hx-delete="/tasks?id=3" hx-params="not task-id" hx-target=".task[data-id=&#39;3&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="4"><input type="hidden" name="task-id" value="4"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/4/edit-name">Task 4</span><div class="remove-task-btn" hx-delete="/tasks?id=4" hx-params="not task-id" hx-target=".task[data-id=&#39;4&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="5"><input type="hidden" name="task-id" value="5"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/5/edit-name">Task 5</span><div class="remove-task-btn" hx-delete="/tasks?id=5" hx-params="not task-id" hx-target=".task[data-id=&#39;5&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="6"><input type="hidden" name="task-id" value="6"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/6/edit-name">Task 6</span><div class="remove-task-btn" hx-delete="/tasks?id=6" hx-params="not task-id" hx-target=".task[data-id=&#39;6&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="7"><input type="hidden" name="task-id" value="7"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/7/edit-name">Task 7</span><div class="remove-task-btn" hx-delete="/tasks?id=7" hx-params="not task-id" hx-target=".task[data-id=&#39;7&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="8"><input type="hidden" name="task-id" value="8"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/8/edit-name">Task 8</span><div class="remove-task-btn" hx-delete="/tasks?id=8" hx-params="not task-id" hx-target=".task[data-id=&#39;8&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div><div class="task" data-id="9"><input type="hidden" name="task-id" value="9"> <span class="handle"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16"><path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path></svg></span> <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/9/edit-name">Task 9</span><div class="remove-task-btn" hx-delete="/tasks?id=9" hx-params="not task-id" hx-target=".task[data-id=&#39;9&#39;]" hx-swap="outerHTML swap:500ms"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path> <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path></svg></div></div></div><div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">Click here to add a task</div></div></section></main></body></html>
+      .remove-task-btn {
+      position: absolute;
+      right: 8px;
+      top: 6px;
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      }
+    </style>
+    <script type="text/javascript">
+      htmx.onLoad(function (content) {
+      var taskList = content.querySelector('.active-tasks');
+      new Sortable(taskList, {
+      handle: '.handle',
+      animation: 150,
+      });
+      })
+    </script>
+  </head>
+  <body>
+    <main class="container">
+      <section>
+        <span class="lock-btn" hx-put="/status?locked=true" hx-target=".container" hx-swap="outerHTML">
+          <i class="bi bi-unlock"></i>
+        </span>
+        <div class="task-list">
+          <div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name=&#39;task-id&#39;]" hx-swap="none">
+            <div class="task" data-id="1">
+              <input type="hidden" name="task-id" value="1">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/1/edit-name">
+                Task 1
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=1" hx-params="not task-id" hx-target=".task[data-id=&#39;1&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="2">
+              <input type="hidden" name="task-id" value="2">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/2/edit-name">
+                Task 2
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=2" hx-params="not task-id" hx-target=".task[data-id=&#39;2&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="3">
+              <input type="hidden" name="task-id" value="3">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/3/edit-name">
+                Task 3
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=3" hx-params="not task-id" hx-target=".task[data-id=&#39;3&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="4">
+              <input type="hidden" name="task-id" value="4">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/4/edit-name">
+                Task 4
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=4" hx-params="not task-id" hx-target=".task[data-id=&#39;4&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="5">
+              <input type="hidden" name="task-id" value="5">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/5/edit-name">
+                Task 5
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=5" hx-params="not task-id" hx-target=".task[data-id=&#39;5&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="6">
+              <input type="hidden" name="task-id" value="6">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/6/edit-name">
+                Task 6
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=6" hx-params="not task-id" hx-target=".task[data-id=&#39;6&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="7">
+              <input type="hidden" name="task-id" value="7">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/7/edit-name">
+                Task 7
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=7" hx-params="not task-id" hx-target=".task[data-id=&#39;7&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="8">
+              <input type="hidden" name="task-id" value="8">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/8/edit-name">
+                Task 8
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=8" hx-params="not task-id" hx-target=".task[data-id=&#39;8&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="task" data-id="9">
+              <input type="hidden" name="task-id" value="9">
+              <span class="handle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+                  <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+                </svg>
+              </span>
+              <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/9/edit-name">
+                Task 9
+              </span>
+              <div class="remove-task-btn" hx-delete="/tasks?id=9" hx-params="not task-id" hx-target=".task[data-id=&#39;9&#39;]" hx-swap="outerHTML swap:500ms">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div hx-post="/tasks" hx-swap="beforeend" hx-target=".active-tasks" class="new-task-btn">
+            Click here to add a task
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
 ---
 
 [TestPutStatusRoute - 1]
-<main class="container"><section><span class="lock-btn" hx-put="/status?locked=false" hx-target=".container" hx-swap="outerHTML"><i class="bi bi-lock"></i></span><div class="task-list"><div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name=&#39;task-id&#39;]" hx-swap="none"><div class="task" data-id="1"><input type="hidden" name="task-id" value="1"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/1" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 1</span></div><div class="task" data-id="2"><input type="hidden" name="task-id" value="2"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/2" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 2</span></div><div class="task" data-id="3"><input type="hidden" name="task-id" value="3"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/3" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 3</span></div><div class="task" data-id="4"><input type="hidden" name="task-id" value="4"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/4" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 4</span></div><div class="task" data-id="5"><input type="hidden" name="task-id" value="5"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/5" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 5</span></div><div class="task" data-id="6"><input type="hidden" name="task-id" value="6"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/6" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 6</span></div><div class="task" data-id="7"><input type="hidden" name="task-id" value="7"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/7" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 7</span></div><div class="task" data-id="8"><input type="hidden" name="task-id" value="8"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/8" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 8</span></div><div class="task" data-id="9"><input type="hidden" name="task-id" value="9"> <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/9" hx-params="not task-id"><span class="task-name" hx-params="not task-id" hx-swap="outerHTML">Task 9</span></div></div></div></section></main>
+<main class="container">
+  <section>
+    <span class="lock-btn" hx-put="/status?locked=false" hx-target=".container" hx-swap="outerHTML">
+      <i class="bi bi-lock"></i>
+    </span>
+    <div class="task-list">
+      <div class="active-tasks" hx-trigger="end" hx-put="/tasks" hx-include="[name=&#39;task-id&#39;]" hx-swap="none">
+        <div class="task" data-id="1">
+          <input type="hidden" name="task-id" value="1">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/1" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 1
+          </span>
+        </div>
+        <div class="task" data-id="2">
+          <input type="hidden" name="task-id" value="2">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/2" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 2
+          </span>
+        </div>
+        <div class="task" data-id="3">
+          <input type="hidden" name="task-id" value="3">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/3" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 3
+          </span>
+        </div>
+        <div class="task" data-id="4">
+          <input type="hidden" name="task-id" value="4">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/4" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 4
+          </span>
+        </div>
+        <div class="task" data-id="5">
+          <input type="hidden" name="task-id" value="5">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/5" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 5
+          </span>
+        </div>
+        <div class="task" data-id="6">
+          <input type="hidden" name="task-id" value="6">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/6" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 6
+          </span>
+        </div>
+        <div class="task" data-id="7">
+          <input type="hidden" name="task-id" value="7">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/7" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 7
+          </span>
+        </div>
+        <div class="task" data-id="8">
+          <input type="hidden" name="task-id" value="8">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/8" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 8
+          </span>
+        </div>
+        <div class="task" data-id="9">
+          <input type="hidden" name="task-id" value="9">
+          <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/9" hx-params="not task-id">
+          <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
+            Task 9
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 ---
