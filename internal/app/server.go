@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"fmt"
 	"strconv"
 
@@ -38,11 +37,11 @@ func NewServer(app *task.App, port int) *Server {
 	e := echo.New()
 	e.Use(middleware.Logger())
 
-	e.GET("/", func(c echo.Context) error {
+	e.GET(BaseRoute, func(c echo.Context) error {
 		return render(c, 200, page.Index(app))
 	})
 
-	e.PUT("/status", func(c echo.Context) error {
+	e.PUT(StatusRoute, func(c echo.Context) error {
 		locked := c.QueryParam("locked")
 		if locked == "true" {
 			app.Locked = true
@@ -52,12 +51,12 @@ func NewServer(app *task.App, port int) *Server {
 		return render(c, 200, page.Container(app))
 	})
 
-	e.POST("/tasks", func(c echo.Context) error {
+	e.POST(TaskListRoute, func(c echo.Context) error {
 		task := app.AddNewTask()
 		return render(c, 200, component.Task(task, app.Locked))
 	})
 
-	e.PUT("/tasks", func(c echo.Context) error {
+	e.PUT(TaskListRoute, func(c echo.Context) error {
 		var payload TaskIdsPayload
 		err := c.Bind(&payload)
 		if err != nil {
@@ -66,25 +65,25 @@ func NewServer(app *task.App, port int) *Server {
 		return app.ReorderTasks(payload.TaskIds)
 	})
 
-	e.DELETE("/tasks", func(c echo.Context) error {
+	e.DELETE(TaskListRoute, func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.QueryParam("id"))
 		app.RemoveTask(id)
 		return nil
 	})
 
-	e.GET("/tasks/:id/edit-name", func(c echo.Context) error {
+	e.GET(EditTaskNameRoute, func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
 		return render(c, 200, component.TaskNameEdit(task))
 	})
 
-	e.GET("/tasks/:id/display-name", func(c echo.Context) error {
+	e.GET(DisplayTaskNameRoute, func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
 		return render(c, 200, component.TaskName(task, app.Locked))
 	})
 
-	e.PUT("/tasks/:id", func(c echo.Context) error {
+	e.PUT(TaskRoute, func(c echo.Context) error {
 		id, _ := strconv.Atoi(c.Param("id"))
 		task, _ := app.GetTask(id)
 		name := c.FormValue("task-name")
@@ -108,8 +107,4 @@ func NewServer(app *task.App, port int) *Server {
 
 func (s *Server) Start() {
 	s.e.Logger.Fatal(s.e.Start(fmt.Sprintf(":%d", s.port)))
-}
-
-func (s *Server) Stop() {
-	s.e.Shutdown(context.TODO())
 }
