@@ -1,3 +1,6 @@
+deps:
+	go mod download
+
 lint:
 	gofmt -w -s .
 

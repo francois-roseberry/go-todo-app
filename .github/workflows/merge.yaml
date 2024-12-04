@@ -19,6 +19,9 @@ jobs:
       - name: Install Templ
         run: go install github.com/a-h/templ/cmd/templ@latest
 
+      - name: Install dependencies
+        run: make deps
+
       - name: Lint
         run: make lint
 
