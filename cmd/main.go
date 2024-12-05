@@ -6,6 +6,5 @@ import (
 )
 
 func main() {
-	s := app.NewServer(task.NewApp(), 3000)
-	s.Start()
+	app.NewServer(task.NewApp(), 3000).Start()
 }
