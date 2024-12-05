@@ -4,7 +4,7 @@ deps:
 lint:
 	gofmt -w -s .
 
-templ:
+templates:
 	templ generate
 
 test:
