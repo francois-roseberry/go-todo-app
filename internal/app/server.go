@@ -92,9 +92,9 @@ func NewServer(app *task.App, port int) *Server {
 		}
 		checked := c.FormValue("checked")
 		if checked == "on" {
-			task.Checked = true
+			task.Done = true
 		} else {
-			task.Checked = false
+			task.Done = false
 		}
 		return render(c, 200, component.TaskName(task, app.Locked))
 	})

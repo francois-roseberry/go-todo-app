@@ -6,7 +6,7 @@ import (
 )
 
 templ TaskName(t *task.Task, locked bool) {
-    <span class={ "task-name", templ.KV("editable", !locked), templ.KV("done", t.Checked) } hx-params="not task-id" hx-swap="outerHTML"
+    <span class={ "task-name", templ.KV("editable", !locked), templ.KV("done", t.Done) } hx-params="not task-id" hx-swap="outerHTML"
         if !locked {
             hx-get={ fmt.Sprintf("/tasks/%d/edit-name", t.Id) }
         }

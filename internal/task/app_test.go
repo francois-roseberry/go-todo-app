@@ -29,8 +29,8 @@ func TestAddTask(t *testing.T) {
 		t.Run("then new task has an id of 10", func(t *testing.T) {
 			assert.Equal(t, 10, lastTask.Id)
 		})
-		t.Run("then new task must be unchecked", func(t *testing.T) {
-			assert.False(t, lastTask.Checked)
+		t.Run("then new task must not be done", func(t *testing.T) {
+			assert.False(t, lastTask.Done)
 		})
 	})
 }

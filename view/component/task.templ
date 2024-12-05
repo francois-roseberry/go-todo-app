@@ -17,7 +17,7 @@ templ Task(t *task.Task, locked bool) {
         }
         
         if locked {
-            <input type="checkbox" name="checked" class="task-checkbox" hx-put={ fmt.Sprintf("/tasks/%d", t.Id) } hx-params="not task-id" hx-target={ fmt.Sprintf(".task[data-id='%d'] .task-name", t.Id) } hx-swap="outerHTML" checked?={ t.Checked } />
+            <input type="checkbox" name="checked" class="task-checkbox" hx-put={ fmt.Sprintf("/tasks/%d", t.Id) } hx-params="not task-id" hx-target={ fmt.Sprintf(".task[data-id='%d'] .task-name", t.Id) } hx-swap="outerHTML" checked?={ t.Done } />
         }
         
         @TaskName(t, locked)
