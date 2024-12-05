@@ -4,6 +4,9 @@ deps:
 lint:
 	gofmt -w -s .
 
+templ:
+	templ generate
+
 test:
 	templ generate & go test -v -cover ./...
 

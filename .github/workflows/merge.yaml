@@ -19,6 +19,9 @@ jobs:
       - name: Install Templ
         run: go install github.com/a-h/templ/cmd/templ@latest
 
+      - nane: Compile templates
+        run: make templ
+
       - name: Install dependencies
         run: make deps
 
