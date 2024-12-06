@@ -8,7 +8,7 @@ templates:
 	templ generate
 
 test:
-	templ generate & go test -v -cover ./...
+	templ generate & go test -cover ./...
 
 build:
 	templ generate & go build -o ./tmp/main cmd/main.go
