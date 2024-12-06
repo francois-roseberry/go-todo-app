@@ -128,7 +128,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/1/edit-name">
-                Task 1
+                Sort Pokemon cards
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=1" hx-params="not task-id" hx-target=".task[data-id=&#39;1&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -145,7 +145,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/2/edit-name">
-                Task 2
+                Conquer the world
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=2" hx-params="not task-id" hx-target=".task[data-id=&#39;2&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -162,7 +162,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/3/edit-name">
-                Task 3
+                Register for next Software Crafters meetup
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=3" hx-params="not task-id" hx-target=".task[data-id=&#39;3&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -179,7 +179,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/4/edit-name">
-                Task 4
+                Go shopping for Christmas gifts
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=4" hx-params="not task-id" hx-target=".task[data-id=&#39;4&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -196,7 +196,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/5/edit-name">
-                Task 5
+                Buy milk
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=5" hx-params="not task-id" hx-target=".task[data-id=&#39;5&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -213,7 +213,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/6/edit-name">
-                Task 6
+                Print latest model
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=6" hx-params="not task-id" hx-target=".task[data-id=&#39;6&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -230,7 +230,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/7/edit-name">
-                Task 7
+                Finish HTMX app
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=7" hx-params="not task-id" hx-target=".task[data-id=&#39;7&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -247,7 +247,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/8/edit-name">
-                Task 8
+                Ship printed model to customer X
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=8" hx-params="not task-id" hx-target=".task[data-id=&#39;8&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -264,7 +264,7 @@
                 </svg>
               </span>
               <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/9/edit-name">
-                Task 9
+                Water the plants
               </span>
               <div class="remove-task-btn" hx-delete="/tasks?id=9" hx-params="not task-id" hx-target=".task[data-id=&#39;9&#39;]" hx-swap="outerHTML swap:500ms">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
@@ -296,63 +296,63 @@
           <input type="hidden" name="task-id" value="1">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/1" hx-params="not task-id" hx-target=".task[data-id=&#39;1&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 1
+            Sort Pokemon cards
           </span>
         </div>
         <div class="task" data-id="2">
           <input type="hidden" name="task-id" value="2">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/2" hx-params="not task-id" hx-target=".task[data-id=&#39;2&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 2
+            Conquer the world
           </span>
         </div>
         <div class="task" data-id="3">
           <input type="hidden" name="task-id" value="3">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/3" hx-params="not task-id" hx-target=".task[data-id=&#39;3&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 3
+            Register for next Software Crafters meetup
           </span>
         </div>
         <div class="task" data-id="4">
           <input type="hidden" name="task-id" value="4">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/4" hx-params="not task-id" hx-target=".task[data-id=&#39;4&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 4
+            Go shopping for Christmas gifts
           </span>
         </div>
         <div class="task" data-id="5">
           <input type="hidden" name="task-id" value="5">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/5" hx-params="not task-id" hx-target=".task[data-id=&#39;5&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 5
+            Buy milk
           </span>
         </div>
         <div class="task" data-id="6">
           <input type="hidden" name="task-id" value="6">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/6" hx-params="not task-id" hx-target=".task[data-id=&#39;6&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 6
+            Print latest model
           </span>
         </div>
         <div class="task" data-id="7">
           <input type="hidden" name="task-id" value="7">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/7" hx-params="not task-id" hx-target=".task[data-id=&#39;7&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 7
+            Finish HTMX app
           </span>
         </div>
         <div class="task" data-id="8">
           <input type="hidden" name="task-id" value="8">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/8" hx-params="not task-id" hx-target=".task[data-id=&#39;8&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 8
+            Ship printed model to customer X
           </span>
         </div>
         <div class="task" data-id="9">
           <input type="hidden" name="task-id" value="9">
           <input type="checkbox" name="checked" class="task-checkbox" hx-put="/tasks/9" hx-params="not task-id" hx-target=".task[data-id=&#39;9&#39;] .task-name" hx-swap="outerHTML">
           <span class="task-name" hx-params="not task-id" hx-swap="outerHTML">
-            Task 9
+            Water the plants
           </span>
         </div>
       </div>
