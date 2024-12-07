@@ -284,7 +284,7 @@
 </html>
 ---
 
-[TestPutStatusRoute - 1]
+[TestPutStatus - 1]
 <main class="container">
   <section>
     <span class="lock-btn" hx-put="/status?locked=false" hx-target=".container" hx-swap="outerHTML">
@@ -359,4 +359,24 @@
     </div>
   </section>
 </main>
+---
+
+[TestCreateTask - 1]
+<div class="task" data-id="10">
+  <input type="hidden" name="task-id" value="10">
+  <span class="handle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+      <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
+    </svg>
+  </span>
+  <span class="task-name editable" hx-params="not task-id" hx-swap="outerHTML" hx-get="/tasks/10/edit-name">
+    Visit cathedral
+  </span>
+  <div class="remove-task-btn" hx-delete="/tasks?id=10" hx-params="not task-id" hx-target=".task[data-id=&#39;10&#39;]" hx-swap="outerHTML swap:500ms">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+      <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"></path>
+    </svg>
+  </div>
+</div>
 ---
