@@ -1,10 +1,19 @@
 package app
 
-const (
+import "fmt"
+
+var (
 	BaseRoute            = "/"
 	StatusRoute          = "/status"
 	TaskListRoute        = "/tasks"
-	TaskRoute            = "/tasks/:id"
-	EditTaskNameRoute    = "/tasks/:id/edit-name"
-	DisplayTaskNameRoute = "/tasks/:id/display-name"
+	TaskRoute            = fmt.Sprintf("%s/:%s", TaskListRoute, ParamId)
+	EditTaskNameRoute    = fmt.Sprintf("%s/edit-name", TaskRoute)
+	DisplayTaskNameRoute = fmt.Sprintf("%s/display-name", TaskRoute)
+)
+
+const (
+	ParamLocked   = "locked"
+	ParamId       = "id"
+	ParamTaskName = "task-name"
+	ParamChecked  = "checked"
 )

@@ -42,7 +42,7 @@ func NewServer(app *task.App, port int) *Server {
 	})
 
 	e.PUT(StatusRoute, func(c echo.Context) error {
-		locked := c.QueryParam("locked")
+		locked := c.QueryParam(ParamLocked)
 		if locked == "true" {
 			app.Locked = true
 		} else {
@@ -66,31 +66,31 @@ func NewServer(app *task.App, port int) *Server {
 	})
 
 	e.DELETE(TaskListRoute, func(c echo.Context) error {
-		id, _ := strconv.Atoi(c.QueryParam("id"))
+		id, _ := strconv.Atoi(c.QueryParam(ParamId))
 		app.RemoveTask(id)
 		return nil
 	})
 
 	e.GET(EditTaskNameRoute, func(c echo.Context) error {
-		id, _ := strconv.Atoi(c.Param("id"))
+		id, _ := strconv.Atoi(c.Param(ParamId))
 		task, _ := app.GetTask(id)
 		return render(c, 200, component.TaskNameEdit(task))
 	})
 
 	e.GET(DisplayTaskNameRoute, func(c echo.Context) error {
-		id, _ := strconv.Atoi(c.Param("id"))
+		id, _ := strconv.Atoi(c.Param(ParamId))
 		task, _ := app.GetTask(id)
 		return render(c, 200, component.TaskName(task, app.Locked))
 	})
 
 	e.PUT(TaskRoute, func(c echo.Context) error {
-		id, _ := strconv.Atoi(c.Param("id"))
+		id, _ := strconv.Atoi(c.Param(ParamId))
 		task, _ := app.GetTask(id)
-		name := c.FormValue("task-name")
+		name := c.FormValue(ParamTaskName)
 		if name != "" {
 			task.Name = name
 		}
-		checked := c.FormValue("checked")
+		checked := c.FormValue(ParamChecked)
 		if checked == "on" {
 			task.Done = true
 		} else {
