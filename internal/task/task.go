@@ -13,7 +13,7 @@ var taskNames = []string{
 	"Water the plants",
 	"Visit cathedral",
 	"Climb Mt Everest",
-	"Learn manarin",
+	"Learn mandarin",
 	"Go on a walk",
 	"Clean the house",
 	"Go bungee jumping",
