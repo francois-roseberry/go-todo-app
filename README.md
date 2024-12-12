@@ -9,7 +9,7 @@ Simple todo app using Go and HTMX as a practice and personal reference point of 
   - adding a task is done via the button at the button of the list
   - deleting  task is done via the 'minus' icon at the right of each task
   - renaming a task is done by clicking on a task name, entering a new name, and pressing enter
-    - to cancel the renaming, press Esc when editinga task name
+    - to cancel the renaming, press Esc when editing a task name
 - while locked, the list of tasks is frozen, it can only be checked/unchecked
 
 The list of tasks is in-memory only, no persistence has been added since this would just be noise for now; this demo is about HTMX and Templ
