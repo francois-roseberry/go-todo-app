@@ -26,7 +26,7 @@ To run the unit tests:
 
 `make test`
 
-To run the unit tests and udate the snapshots:
+To run the unit tests and update the snapshots:
 
 `UPDATE_SNAPS=true make test`
 
@@ -42,4 +42,4 @@ To start the server in development mode (with hot reloading):
 
 `make dev`
 
-Point your browser to `http://localhost.com`
+Point your browser to `http://localhost:3000`
